@@ -2,6 +2,7 @@ import os
 import time
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+from parser import extract_text
 
 WATCH_FOLDER = "receipts"
 
@@ -12,6 +13,9 @@ class ReceiptHandler(FileSystemEventHandler):
         
         filename = os.path.basename(event.src_path)
         print(f" New file detected: {filename} ")
+
+        text = extract_text(event.src_path)
+        print(text)
 
 if __name__ == "__main__":
     event_handler = ReceiptHandler()
